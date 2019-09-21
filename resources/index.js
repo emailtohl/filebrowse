@@ -1,8 +1,7 @@
 $(function () {
-    var zNodes = [];
+    var zTreeObj;
 
     $.get('../info', function (nodes) {
-        var zTreeObj;
         // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
         var setting = {
             callback: {
@@ -11,16 +10,15 @@ $(function () {
         };
         // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
         var _zNodes = JSON.parse(nodes);
+        var zNodes = [];
         for (var i = 0; i < _zNodes.length; i++) {
             var name = _zNodes[i].name;
-            if (name.endsWith('.js')||name.endsWith('.html')||name.endsWith('.css')||name.endsWith('ztree')) {
+            if (name.endsWith('.js') || name.endsWith('.html') || name.endsWith('.css') || name.endsWith('ztree')) {
                 continue;
             }
             zNodes.push((_zNodes[i]));
         }
-        $(document).ready(function(){
-            zTreeObj = $.fn.zTree.init($("#nodes"), setting, zNodes);
-        });
+        zTreeObj = $.fn.zTree.init($("#nodes"), setting, zNodes);
     });
 
     // 注册ztree点击事件的函数，切换图片
@@ -39,8 +37,9 @@ $(function () {
     function imgOnclick(e) {
         var src = $(this).attr('src');
         var node = breadthFirst(src);
-        $('.modal').modal('show')
+        $('.modal').modal('show');
         $('div.modal button').unbind();
+        var zNodes = zTreeObj.getNodes();
         $('div.modal .next').on('click', function (e) {
             var result = nextOrPre(zNodes, node, true);
             console.log('当前是：', node, '下一个是：', result);
@@ -48,6 +47,7 @@ $(function () {
                 var img = $('img#show');
                 img.attr('src', result.path);
                 $('.modal').modal('hide');
+                zTreeObj.selectNode(result, false, false);
             } else {
                 $('div.modal p').text('没有找到下一页');
             }
@@ -59,6 +59,7 @@ $(function () {
                 var img = $('img#show');
                 img.attr('src', result.path);
                 $('.modal').modal('hide');
+                zTreeObj.selectNode(result, false, false);
             } else {
                 $('div.modal p').text('没有找到上一页');
             }
@@ -68,6 +69,7 @@ $(function () {
     // 广度优先查找与参数src一致的节点
     function breadthFirst(src) {
         var arr = [];
+        var zNodes = zTreeObj.getNodes();
         arr.push(...zNodes);
         var node = null;
         while (arr.length != 0) {
@@ -107,5 +109,5 @@ $(function () {
         }
         return result;
     }
-    
+
 });
