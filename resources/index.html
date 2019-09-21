@@ -6,20 +6,39 @@
     <link rel="stylesheet" href="ztree/zTreeStyle.css">
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="jquery.js"></script>
+    <script src="bootstrap.min.js"></script>
     <script src="ztree/jquery.ztree.all.min.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-1">
-                <ul id="nodes" class="ztree"></ul>
-            </div>
-            <div class="col-md-11">
-                <img id="show">
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-1">
+            <ul id="nodes" class="ztree"></ul>
         </div>
-
+        <div class="col-md-11">
+            <img id="show">
+        </div>
     </div>
+
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">选择</h4>
+            </div>
+            <div class="modal-body">
+                <p>选择上一页或下一页&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pre">上一页</button>
+                <button type="button" class="btn btn-primary next">下一页</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
