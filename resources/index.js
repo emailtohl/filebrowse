@@ -27,6 +27,7 @@ $(function () {
             var img = $('img#show');
             img.unbind();
             img.attr('src', treeNode.path);
+            $('div.modal p').text(treeNode.name);
             img.on('click', imgOnclick);
             img.on('tap', imgOnclick);
         }
@@ -46,7 +47,7 @@ $(function () {
             if (result) {
                 var img = $('img#show');
                 img.attr('src', result.path);
-                $('.modal').modal('hide');
+                $('div.modal').modal('hide').find('p').text(result.name);
                 zTreeObj.selectNode(result, false, false);
             } else {
                 $('div.modal p').text('没有找到下一页');
@@ -58,7 +59,7 @@ $(function () {
             if (result) {
                 var img = $('img#show');
                 img.attr('src', result.path);
-                $('.modal').modal('hide');
+                $('div.modal').modal('hide').find('p').text(result.name);
                 zTreeObj.selectNode(result, false, false);
             } else {
                 $('div.modal p').text('没有找到上一页');
